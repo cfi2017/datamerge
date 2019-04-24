@@ -79,20 +79,6 @@ func main() {
 	<-done
 }
 
-func save(file string, outBuffer *[]string) {
-	log.Printf("Saving %s", file)
-	res := ""
-	for _, line := range *outBuffer {
-		res += line + "\n"
-	}
-	res = strings.TrimSuffix(res, "\n")
-	err := ioutil.WriteFile(file, []byte(res), os.FileMode(0777))
-	if err != nil {
-		log.Fatalf("Error writing %s: %v", file, err)
-	} else {
-		log.Printf("Saved %s", file)
-	}
-}
 
 func process(file string, out *chan string, delimiters *regexp.Regexp) {
 
@@ -137,10 +123,7 @@ func fileWriter(outFolder string, stepSize int, out chan string, done chan bool)
 	for {
 		line, more := <-out
 
-		_, err = currFile.WriteString(line + "\n")
-		if err != nil {
-			log.Fatalf("Fatal Error: %v", err)
-		}
+		currFile.WriteString(line + "\n")
 		currLine++;
 
 		if currLine % stepSize == 0 {
