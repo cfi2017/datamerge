@@ -136,7 +136,6 @@ func fileWriter(outFolder string, stepSize int, out chan string, done chan bool)
 
 	for {
 		line, more := <-out
-		log.Print(line)
 
 		_, err = currFile.WriteString(line + "\n")
 		if err != nil {
