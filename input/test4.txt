@@ -1,0 +1,3 @@
+test@test4.ch:asdf
+test@test4.ch|asdf
+test@test4.ch;asdf
